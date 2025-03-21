@@ -1,0 +1,37 @@
+#!/bin/csh -f
+ 
+xrun \
+    -xmlibdirname {{ param.build_dir }}/INCA64_rtl \
+    -R \
+    -status \
+    -licqueue \
+    -xceligen on \
+    -svseed {{ param.seed }} \
+    +seed={{ param.seed }} \
+    {% if param.nostdout -%}
+    -nostdout \
+    {% endif -%}
+    #{% if param.waves -%}
+    #-input ${DV_TOP_DIR}/scripts/waves.tcl \
+    #{% endif -%}
+    #{% if param.gui -%}
+    #-gui \
+    #{% else -%}
+    #-input ${DV_TOP_DIR}/scripts/run.tcl \
+    #{% endif -%}
+    {% if param.verbosity is not none -%}
+    +UVM_VERBOSITY={{ param.verbosity }} \
+    {% endif -%}
+    {% if param.max_quit_count is not none -%}
+    +UVM_MAX_QUIT_COUNT={{ param.max_quit_count }} \
+    {% endif -%}
+    {% if param.timeout_sim != 0 -%}
+    +UVM_TIMEOUT={{ param.timeout_sim }} \
+    {% endif -%}
+    {{ param.test_cmd }} \
+    {% if run.args is not none -%}
+    {{ run.args }} \
+    {% endif -%}
+    -l {{ param.log_file }}
+ 
+# end of script

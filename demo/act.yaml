@@ -1,0 +1,18 @@
+---
+build:
+    - name: rtl
+      builds_dir: &builds_dir ${DV_SIM_ROOT}/snapshots
+      script: &build_script ${DV_TOP_DIR}/scripts/build.csh.j2
+      top: &top ${DV_TB_NAME}
+      args:
+
+
+run:
+    - name: rtl
+      script: &run_script ${DV_TOP_DIR}/scripts/run.csh.j2
+      runs_dir: &run_dir ${DV_SIM_ROOT}/runs
+      args:
+
+test:
+        source:
+                - ${DV_TOP_DIR}/test.yaml: trail

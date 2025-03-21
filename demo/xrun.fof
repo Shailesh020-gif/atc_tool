@@ -1,0 +1,2 @@
+-incdir ${DV_TOP_DIR}/project/tb
+        ${DV_TOP_DIR}/project/tb/act_tb_top.sv

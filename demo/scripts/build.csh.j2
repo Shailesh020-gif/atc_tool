@@ -1,0 +1,22 @@
+#!/bin/csh -f
+
+xrun \
+    -xmlibdirname {{ param.build_dir }}/INCA64_rtl \
+    -c \
+    -zlib 6 \
+    -uvm \
+    -uvmhome CDNS-1.2 \
+    -disable_sem2009 \
+    {% if param.fast is sameas false -%}
+    -access +rwc \
+    {% endif -%}
+    -timescale 1ns/1ps \
+    -top {{ build.top }} \
+    -f ${DV_TOP_DIR}/xrun.fof \
+    -define IP_LEV \
+    {% if build.args is not none -%}
+    {{ build.args }} \
+    {% endif -%}
+    -l {{ param.log_file }}
+
+# end of script
